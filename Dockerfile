@@ -1,5 +1,7 @@
 FROM mautic/mautic:latest
 
+RUN a2dismod mpm_event mpm_worker && a2enmod mpm_prefork
+
 ARG MAUTIC_DB_HOST
 ARG MAUTIC_DB_PORT
 ARG MAUTIC_DB_USER
