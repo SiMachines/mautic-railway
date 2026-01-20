@@ -2,6 +2,7 @@ FROM mautic/mautic:latest
 
 # Ensure only one MPM is loaded (prefork) for mod_php
 RUN a2dismod mpm_event mpm_worker || true \
+    && rm -f /etc/apache2/mods-enabled/mpm_event.* /etc/apache2/mods-enabled/mpm_worker.* \
     && a2enmod mpm_prefork \
     && sed -ri 's/^\s*LoadModule\s+mpm_(event|worker)_module/#&/g' /etc/apache2/apache2.conf /etc/apache2/mods-available/*.load \
     && sed -ri 's/^\s*LoadModule\s+mpm_prefork_module/#&/g' /etc/apache2/apache2.conf /etc/apache2/mods-available/*.load \
